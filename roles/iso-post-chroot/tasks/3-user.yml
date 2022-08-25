@@ -1,5 +1,5 @@
 - name: Create user account
-  command: chroot /mnt useradd -s /bin/bash -m --user-group -G wheel {{ user.name }}
+  command: chroot /mnt useradd -s /bin/bash -m --user-group -G wheel,users,audio,video,input {{ user.name }}
 
 - name: Create user password
   shell: echo "{{ user.name }}:{{ user.password }}" | chpasswd -R /mnt -c SHA512
