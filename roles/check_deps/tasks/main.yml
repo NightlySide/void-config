@@ -1,0 +1,11 @@
+- name: Enforce dependencies presence
+  block:
+    - name: Checks whether python 3 is installed
+      raw: test -e /usr/bin/python3
+      changed_when: false
+      no_log: True
+  rescue:
+    - name: Upgrade xbps package
+      raw: xbps-install -Syu xbps
+    - name: Install missing python 3 package
+      raw: xbps-install -Sy python3

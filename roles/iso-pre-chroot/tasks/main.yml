@@ -1,0 +1,41 @@
+- name: Set encryption and btrfs fact
+  set_fact:
+    use_encryption: "{{ encryption is defined and encryption.enabled }}"
+    use_btrfs: "{{ btrfs is defined and btrfs.enabled }}"
+    root_part: "{{ manual_partitions.root | default(install_drive + '2')}}"
+    boot_part: "{{ manual_partitions.boot | default(install_drive + '1')}}"
+    hostname: "{{ hostname | default(inventory_hostname | replace('_','-'))}}"
+
+- name: Abort if the host is not booted from the Void live media
+  fail:
+    msg: "This host is not booted from the Void live media!"
+  when: ansible_nodename != 'void-live'
+
+- import_tasks: 1-partitions.yml
+  tags: partitions
+
+- import_tasks: 2-encryption.yml
+  tags: encryption
+  when: use_encryption
+
+- import_tasks: 3-filesystem.yml
+  tags: filesystem
+
+- import_tasks: 4-btrfs.yml
+  tags: btrfs
+  when: use_btrfs
+
+- name: Create mountpoint for boot volume
+  file:
+    path: /mnt/boot/efi
+    state: directory
+
+- name: Mount boot filesystem
+  mount:
+    path: /mnt/boot/efi
+    src: "{{ boot_part }}"
+    fstype: vfat
+    state: mounted
+
+- import_tasks: 5-install.yml
+  tags: install

@@ -1,0 +1,37 @@
+
+ansible_python_interpreter: /usr/bin/python3
+void_mirror: https://mirror.fit.cvut.cz/voidlinux
+
+timezone: Europe/Paris
+keymap: fr
+locale: fr_FR
+
+encryption:
+  enabled: true
+  password: voidlinux
+
+btrfs:
+  enabled: true
+  subvols: 
+    - sub: '@snapshots'
+      path: '.snapshots'
+    - sub: '@home'
+      path: 'home'
+    - sub: '@log'
+      path: 'var/log'
+    - sub: '@cache'
+      path: 'var/cache'
+    - sub: '@tmp'
+      path: 'var/tmp'
+    - sub: '@data'
+      path: 'data'
+      disable_cow: true
+
+install_drive: /dev/vda
+
+# manual_partitions:
+#   - boot: vda1
+#   - root: vda2
+
+hostname: voidlinux
+root_password: toor

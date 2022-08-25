@@ -1,0 +1,15 @@
+- hosts: voidlinux
+  gather_facts: false
+  become: true
+  roles:
+  - check_deps
+
+# - hosts: voidlinux
+#   become: true
+#   roles:
+#   - iso-pre-chroot
+
+- hosts: voidlinux-chroot
+  become: true
+  roles:
+  - iso-post-chroot

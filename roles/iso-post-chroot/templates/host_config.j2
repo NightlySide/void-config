@@ -1,0 +1,12 @@
+# Host configuration
+echo {{ hostname }} > /etc/hostname
+cat <<EOF > /etc/rc.rc.conf
+# /etc/rc.conf - system configuration for void
+
+HOSTNAME="{{ hostname }}"
+HARDWARECLOCK="UTC"
+TIMEZONE="{{ timezone }}"
+KEYMAP="{{ keymap }}"
+EOF
+echo "{{ locale }}.UTF-8 UTF-8" > /etc/default/libc-locales
+echo LANG={{ locale }}.UTF-8 > /etc/locale.conf

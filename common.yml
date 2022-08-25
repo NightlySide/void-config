@@ -1,0 +1,13 @@
+---
+- hosts: voidlinux
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install python 3 if needed
+      raw: test -e /usr/bin/python || (xbps-install -Sy python3)
+      changed_when: false
+  tags: always
+
+- hosts: voidlinux
+  roles:
+  - common

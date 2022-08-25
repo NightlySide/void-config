@@ -1,0 +1,32 @@
+- hosts: voidlinux
+  become: true
+  tasks:
+    - name: Mount remaining folders
+      block:
+      - mount:
+          path: /mnt/proc
+          fstype: proc
+          src: /proc
+          state: present
+      - mount:
+          path: /mnt/sys
+          fstype: sysfs
+          src: sys
+          state: present
+      - mount:
+          path: /mnt/dev
+          src: /dev
+          fstype: ext4
+          opts: bind
+          state: present
+      - mount:
+          path: /mnt/dev/pts
+          fstype: devpts
+          src: pts
+          state: present
+
+    - name: Copying remaining files
+      block:
+      - copy:
+          src: /etc/resolv.conf
+          dest: /mnt/etc

@@ -1,0 +1,14 @@
+# https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system
+- name: Create filesystem in root volume
+  filesystem:
+    dev: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    fstype: '{{ "btrfs" if use_btrfs else "ext4" }}'
+    opts: '-L ArchLinux'
+    force: yes
+
+- name: Mount root filesystem
+  mount:
+    path: /mnt
+    src: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    fstype: '{{ "btrfs" if use_btrfs else "ext4" }}'
+    state: mounted

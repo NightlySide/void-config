@@ -1,0 +1,2 @@
+- name: Install the required dependencies for the installation
+  import_tasks: dependencies.yml

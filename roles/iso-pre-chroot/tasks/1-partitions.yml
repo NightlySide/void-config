@@ -1,0 +1,35 @@
+- name: Install parted
+  community.general.xbps: name=parted state=present
+
+- name: Wipe install drive and all its partitions
+  command: find /dev -wholename f"{{ install_drive }}*" -exec wipefs --force --all {} \;
+  when: manual_partitions is not defined
+
+- name: Create partitions
+  parted:
+    device: '{{ install_drive }}'
+    label: gpt
+    number: 1
+    part_end: 512MB
+    name: boot
+    flags: [boot, esp]
+    state: present
+  when: manual_partitions is not defined
+
+- name: Create root partition
+  parted:
+    device: '{{ install_drive }}'
+    label: gpt
+    number: 2
+    part_start: 512MB
+    name: root
+    state: present
+  when: manual_partitions is not defined
+
+- name: Create FAT32 filesystem in boot partition
+  filesystem:
+    dev: '{{ boot_part }}'
+    fstype: vfat
+    opts: -F32
+    force: yes
+  when: manual_partitions is not defined

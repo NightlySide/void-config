@@ -1,0 +1,8 @@
+#LUKS1 because of grub: https://wiki.archlinux.org/title/GRUB#Encrypted_/boot
+- name: Encrypt drive
+  community.crypto.luks_device:
+    device: "{{ root_part }}"
+    state: "opened"
+    name: voidcryptroot
+    type: luks1
+    passphrase: "{{ encryption.password }}"

@@ -1,0 +1,10 @@
+all:
+  hosts:
+    voidlinux:
+      ansible_host: 192.168.122.218
+      ansible_user: anon
+      ansible_password: voidlinux
+    voidlinux-chroot:
+      ansible_host: 192.168.122.218
+      ansible_user: anon
+      ansible_password: voidlinux
