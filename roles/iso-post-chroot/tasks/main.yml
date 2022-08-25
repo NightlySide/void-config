@@ -37,6 +37,12 @@
 - name: Enable services
   shell: chroot /mnt /scripts/enable_svc.sh
 
+- name: Generate host keys
+  shell: chroot /mnt ssh-keygen -A
+
+- name: Enable sshd service
+  shell: chroot /mnt ln -s /etc/sv/sshd /var/service
+
 - name: Delete scripts folder
   file:
     path: /mnt/scripts
