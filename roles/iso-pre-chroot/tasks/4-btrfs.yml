@@ -15,7 +15,7 @@
 - name: Mount btrfs root subvolume
   mount:
     path: /mnt
-    src: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    src: '{{ "/dev/mapper/vg0-root" if use_encryption else root_part }}'
     fstype: btrfs
     opts: "compress=zstd,discard=async,subvol=@"
     state: mounted
@@ -29,7 +29,7 @@
 - name: Mount btrfs subvolumes
   mount:
     path: /mnt/{{ item.path }}
-    src: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    src: '{{ "/dev/mapper/vg0-root" if use_encryption else root_part }}'
     fstype: btrfs
     opts: "compress=zstd,discard=async,subvol={{ item.sub }}"
     state: mounted

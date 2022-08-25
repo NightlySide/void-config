@@ -1,14 +1,41 @@
 # https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system
+
+- name: Create volume group
+  community.general.lvg:
+    vg: vg0
+    pvs: "/dev/mapper/voidcryptroot"
+
+- name: Create logical volume for swap
+  community.general.lvol:
+    vg: vg0
+    lv: swap
+    size: "{{ swap_size }}"
+
+- name: Create logical volume for root
+  community.general.lvol:
+    vg: vg0
+    lv: root
+    size: +100%FREE
+
+- name: Create filesystem in swap volume
+  filesystem:
+    dev: '{{ "/dev/mapper/vg0-swap" if use_encryption else root_part }}'
+    fstype:  "swap"
+    force: yes
+
 - name: Create filesystem in root volume
   filesystem:
-    dev: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    dev: '{{ "/dev/mapper/vg0-root" if use_encryption else root_part }}'
     fstype: '{{ "btrfs" if use_btrfs else "ext4" }}'
-    opts: '-L ArchLinux'
+    opts: '-L VoidLinux'
     force: yes
+
+- name: Mount swap partition
+  shell: swapon /dev/mapper/vg0-swap
 
 - name: Mount root filesystem
   mount:
     path: /mnt
-    src: '{{ "/dev/mapper/voidcryptroot" if use_encryption else root_part }}'
+    src: '{{ "/dev/mapper/vg0-root" if use_encryption else root_part }}'
     fstype: '{{ "btrfs" if use_btrfs else "ext4" }}'
     state: mounted

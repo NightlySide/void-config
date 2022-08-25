@@ -1,11 +1,19 @@
 - name: Install parted
   community.general.xbps: name=parted state=present
 
-- name: Wipe install drive and all its partitions
-  command: find /dev -wholename f"{{ install_drive }}*" -exec wipefs --force --all {} \;
+- name: Read device information (always use unit when probing)
+  community.general.parted: "device={{ install_drive }} unit=MiB"
+  register: dev_info
+
+- name: Remove all partitions from disk
+  community.general.parted:
+    device: "{{ install_drive }}"
+    number: '{{ item.num }}'
+    state: absent
+  loop: '{{ dev_info.partitions }}'
   when: manual_partitions is not defined
 
-- name: Create partitions
+- name: Create boot partition
   parted:
     device: '{{ install_drive }}'
     label: gpt

@@ -1,6 +1,6 @@
 
 ansible_python_interpreter: /usr/bin/python3
-void_mirror: https://mirror.fit.cvut.cz/voidlinux
+void_mirror: https://repo-fi.voidlinux.org
 
 timezone: Europe/Paris
 keymap: fr
@@ -28,10 +28,12 @@ btrfs:
       disable_cow: true
 
 install_drive: /dev/vda
+swap_size: 2048M
 
 # manual_partitions:
 #   - boot: vda1
-#   - root: vda2
+#   - swap: vda2
+#   - root: vda3
 
 hostname: voidlinux
 root_password: toor

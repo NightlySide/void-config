@@ -27,7 +27,7 @@
   command: chroot /mnt /scripts/host_config.sh
 
 - name: Generate fstab
-  shell: /mnt/scripts/genfstab.sh -U /mnt | sed -e "s:ArchLinux:VoidLinux:gi" > /mnt/etc/fstab
+  shell: /mnt/scripts/genfstab.sh -t PARTLABEL /mnt > /mnt/etc/fstab
 
 - name: Install grub
   shell: chroot /mnt /scripts/grub.sh
