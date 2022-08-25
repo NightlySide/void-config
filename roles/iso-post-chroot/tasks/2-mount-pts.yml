@@ -1,0 +1,11 @@
+- name: Mount /proc
+  shell: mount -t proc proc /mnt/proc/
+
+- name: Mount /sys
+  shell: mount -t sysfs sys /mnt/sys/
+
+- name: Mount /dev
+  shell: mount -o bind /dev /mnt/dev
+
+- name: Mount /dev/pts
+  shell: mount -t devpts pts /mnt/dev/pts

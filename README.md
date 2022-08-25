@@ -3,26 +3,14 @@ Void installer and config setup with dash and ansible
 
 # How to use
 
-On the host machine, some steps have to be done in order to run the playbook.
+Nothing has to be done on the VM or target machine except booting on a voidlinux ISO.
+
+First, change the variables in the `group_vars` folder in order to match your requirements.
+
+On the host machine, run the following command:
 
 ```bash
-# update xbps
-xbps-install -u xbps
-
-# install git and ansible
-xbps-install -S git ansible
+ansible-playbook -i inventory.yml iso-install.yml
 ```
 
-Once the repository is cloned, the playbook can be run using:
-
-```bash
-
-    Set the root password using the passwd command.
-    Restart the ssh service using systemctl restart sshd.
-    Create a keyfile on your local host containing the password for your LUKS root volume via echo -n "your_password" > keyfile.
-    Generate a hash for the password to be used on your personal account using mkpasswd --method=sha-512.
-
-At this point we are able to login remotely as root, so we can populate inventory.yml and run site.yml:
-
---> https://github.com/jsf9k/ansible-arch-install
-```
+Reboot the target machine and it's done!

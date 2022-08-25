@@ -1,2 +1,0 @@
-- name: Install git
-  community.general.xbps: name=git state=present

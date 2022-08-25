@@ -1,0 +1,25 @@
+cat <<EOF >> /etc/default/grub
+GRUB_ENABLE_CRYPTODISK=y
+EOF
+
+export LUKS_UUID=$(blkid -o value -s UUID {{ root_part }})
+sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=/s/\"$/ rd.auto=1 cryptdevice=UUID=$LUKS_UUID:lvm:allow-discards&/" /etc/default/grub
+
+dd bs=512 count=4 if=/dev/urandom of=/boot/volume.key
+echo {{ encryption.password }} | cryptsetup luksAddKey {{ root_part }} /boot/volume.key
+chmod 000 /boot/volume.key
+chmod -R g-rwx,o-rwx /boot
+cat <<EOF >> /etc/crypttab
+crypt {{ root_part }} /boot/volume.key luks
+EOF
+
+cat <<EOF >> /etc/dracut.conf.d/10-crypt.conf
+install_items+=" /boot/volume.key /etc/crypttab "
+EOF
+echo 'add_dracutmodules+=" crypt btrfs lvm resume "' >> /etc/dracut.conf
+echo 'tmpdir=/tmp' >> /etc/dracut.conf
+dracut --force --hostonly
+
+mkdir /boot/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=void --boot-directory=/boot --recheck

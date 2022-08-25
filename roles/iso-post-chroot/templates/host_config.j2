@@ -1,6 +1,6 @@
 # Host configuration
 echo {{ hostname }} > /etc/hostname
-cat <<EOF > /etc/rc.rc.conf
+cat <<EOF > /etc/rc.conf
 # /etc/rc.conf - system configuration for void
 
 HOSTNAME="{{ hostname }}"
@@ -10,3 +10,11 @@ KEYMAP="{{ keymap }}"
 EOF
 echo "{{ locale }}.UTF-8 UTF-8" > /etc/default/libc-locales
 echo LANG={{ locale }}.UTF-8 > /etc/locale.conf
+
+xbps-reconfigure -f glibc-locales
+xbps-reconfigure -f linux-$(uname -r)
+
+mkdir -p /etc/xbps.d
+cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+sed -i 's|https://repo-default.voidlinux.org|{{ void_mirror }}|g' /etc/xbps.d/*-repository-*.conf
+xbps-install -S

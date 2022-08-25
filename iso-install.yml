@@ -4,10 +4,10 @@
   roles:
   - check_deps
 
-# - hosts: voidlinux
-#   become: true
-#   roles:
-#   - iso-pre-chroot
+- hosts: voidlinux
+  become: true
+  roles:
+  - iso-pre-chroot
 
 - hosts: voidlinux-chroot
   become: true

@@ -11,31 +11,33 @@
     path: /mnt/scripts
     state: directory
 
-# Copy templates
-- name: Copy root_passwd template
-  template:
-    src: root_passwd.j2
-    dest: /mnt/scripts/root_passwd.sh
-    mode: 755
-- name: Copy host_config template
-  template:
-    src: host_config.j2
-    dest: /mnt/scripts/host_config.sh
-    mode: 755
-- name: Copy genfstab script
-  copy:
-    src: genfstab.sh
-    dest: /mnt/scripts/genfstab.sh
-    mode: 755
+- import_tasks: 1-copy-templates.yml
+  tags: copy_tmpl
+
+- import_tasks: 2-mount-pts.yml
+  tags: mount_pts
 
 # Run chrooted scripts
-- name: Set root password and give file permission
+- name: Set root file permission
   command: chroot /mnt /scripts/root_passwd.sh
+- name: Set root password
+  shell: echo "root:{{ root_password }}" | chpasswd -R /mnt -c SHA512
 
 - name: Set host variables
   command: chroot /mnt /scripts/host_config.sh
 
 - name: Generate fstab
   shell: /mnt/scripts/genfstab.sh -U /mnt | sed -e "s:ArchLinux:VoidLinux:gi" > /mnt/etc/fstab
-  register: out
-- debug: var=out.stdout_lines
+
+- name: Install grub
+  shell: chroot /mnt /scripts/grub.sh
+#   register: out
+# - debug: var=out.stdout_lines
+
+- name: Enable services
+  shell: chroot /mnt /scripts/enable_svc.sh
+
+- name: Delete scripts folder
+  file:
+    path: /mnt/scripts
+    state: absent

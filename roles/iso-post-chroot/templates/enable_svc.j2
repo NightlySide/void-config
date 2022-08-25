@@ -1,0 +1,3 @@
+ln -s /etc/sv/dhcpcd /etc/runit/runsvdir/default
+ln -s /etc/sv/wpa_supplicant/ /etc/runit/runsvdir/default
+sed -i 's/issue_discards = 0/issue_discards = 1/' /etc/lvm/lvm.conf

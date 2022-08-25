@@ -1,4 +1,4 @@
 # Set root password and rights
-echo "root:{{ root_password }}" | chpasswd
+# echo "{{ root_password }}" | passwd --stdin root
 chown root:root /
 chmod 755 /

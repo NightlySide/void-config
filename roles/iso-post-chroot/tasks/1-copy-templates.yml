@@ -1,0 +1,25 @@
+- name: Copy root_passwd template
+  template:
+    src: root_passwd.j2
+    dest: /mnt/scripts/root_passwd.sh
+    mode: 755
+- name: Copy host_config template
+  template:
+    src: host_config.j2
+    dest: /mnt/scripts/host_config.sh
+    mode: 755
+- name: Copy genfstab script
+  copy:
+    src: genfstab.sh
+    dest: /mnt/scripts/genfstab.sh
+    mode: 755
+- name: Copy grub script
+  template:
+    src: grub.j2
+    dest: /mnt/scripts/grub.sh
+    mode: 755
+- name: Copy enable_svc script
+  template:
+    src: enable_svc.j2
+    dest: /mnt/scripts/enable_svc.sh
+    mode: 755

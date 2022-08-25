@@ -2,7 +2,7 @@
   community.general.xbps: update_cache=yes
 
 - name: Install base system
-  shell: "echo YES | xbps-install -Sy -R https://mirror.fit.cvut.cz/voidlinux/current -r /mnt base-system btrfs-progs cryptsetup grub lvm2 zstd"
+  shell: "echo YES | xbps-install -Sy -R https://mirror.fit.cvut.cz/voidlinux/current -r /mnt base-system btrfs-progs cryptsetup grub-x86_64-efi lvm2 zstd"
 
 - name: Copying remaining files
   block:
