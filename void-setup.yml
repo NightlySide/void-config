@@ -1,0 +1,10 @@
+- hosts: voidlinux
+  gather_facts: false
+  become: true
+  roles:
+  - check_deps
+
+- hosts: voidlinux
+  become: true
+  roles:
+  - void-setup

@@ -1,0 +1,28 @@
+# Perform a full system upgrade before installing
+- name: Check for system upgrades
+  community.general.xbps: update_cache=yes upgrade=yes
+
+# Install minimal xorg server
+- import_tasks: xorg.yml
+  tags: xorg
+
+# Install Desktop environment
+- import_tasks: de/main.yml
+  tags: desktop_env
+
+# Install web browser
+- import_tasks: browser/main.yml
+  tags: browser
+
+# Install utilities
+- import_tasks: utilities.yml
+  tags: utils
+
+# Install flatpak apps
+- import_tasks: flatpak.yml
+  tags: flatpak
+  when: enable_flatpak
+
+# Install terminal
+- import_tasks: terminal.yml
+  tags: terminal

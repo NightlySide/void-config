@@ -1,0 +1,15 @@
+# Install xtools
+- name: Install xtools
+  community.general.xbps: name=xtools state=present
+
+- name: Install htop
+  community.general.xbps: name=htop state=present
+
+- name: Install psmisc (pstree)
+  community.general.xbps: name=psmisc state=present
+
+- name: Install vlc
+  community.general.xbps: name=vlc state=present
+
+- name: Install gimp
+  community.general.xbps: name=vlc state=present

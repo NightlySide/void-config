@@ -1,0 +1,6 @@
+- name: Install Xorg server
+  community.general.xbps: name=xorg state=present
+
+- name: Enable dbus service
+  shell: ln -s /etc/sv/dbus /var/service
+  ignore_errors: true

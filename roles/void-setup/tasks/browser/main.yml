@@ -1,0 +1,3 @@
+- import_tasks: firefox.yml
+  tags: firefox
+  when: web_browser.lower() == "firefox"

@@ -1,11 +1,13 @@
-
+# ------ Ansible interpreter
 ansible_python_interpreter: /usr/bin/python3
-void_mirror: https://repo-fi.voidlinux.org
 
+# ------ Machine configuration
+void_mirror: https://repo-fi.voidlinux.org
 timezone: Europe/Paris
 keymap: fr
 locale: fr_FR
 
+# ------ Disk Partitionning
 encryption:
   enabled: true
   password: voidlinux
@@ -35,9 +37,22 @@ swap_size: 2048M
 #   - swap: vda2
 #   - root: vda3
 
+# ------ Host and user settings
 hostname: voidlinux
 root_password: toor
-
 user:
   name: user
   password: user
+
+# ------ Software picking list
+
+# Desktop environment
+# possible values are: KDE
+desktop_environment: KDE
+
+# Web browser
+# possible values are: firefox
+web_browser: firefox
+
+# Flatpak apps
+enable_flatpak: true

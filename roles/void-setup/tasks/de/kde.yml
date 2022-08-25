@@ -1,0 +1,20 @@
+- name: Install KDE and base apps
+  community.general.xbps: name=kde5,kde5-baseapps state=present
+
+- name: Enable SDDM
+  shell: ln -s /etc/sv/sddm /var/service
+  ignore_errors: true
+
+# setup autologin
+- name: Create SDDM conf folder
+  file:
+    state: directory
+    path: /etc/sddm.conf.d/
+
+- name: Generate SDDM example config
+  shell: |
+    test -e /etc/sddm.conf.d/autologin.conf || cat <<EOF > /etc/sddm.conf.d/autologin.conf
+    [Autologin]
+    User=user
+    Session=plasma
+    EOF

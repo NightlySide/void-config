@@ -1,0 +1,10 @@
+- name: Install Flatpak
+  community.general.xbps: name=flatpak state=present
+
+- name: Install Flatpak default repository
+  shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+- name: Install apps
+  community.general.flatpak:
+    name:
+      - com.spotify.Client

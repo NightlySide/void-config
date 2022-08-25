@@ -1,0 +1,3 @@
+- import_tasks: kde.yml
+  tags: kde
+  when: desktop_environment.lower() == "kde"
