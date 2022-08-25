@@ -35,3 +35,7 @@ install_drive: /dev/vda
 
 hostname: voidlinux
 root_password: toor
+
+user:
+  name: user
+  password: user

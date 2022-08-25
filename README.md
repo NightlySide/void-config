@@ -14,3 +14,8 @@ ansible-playbook -i inventory.yml iso-install.yml
 ```
 
 Reboot the target machine and it's done!
+
+# TODO
+
+- Add swap partition
+- Remove LUKS encryption on either grub or the root partition

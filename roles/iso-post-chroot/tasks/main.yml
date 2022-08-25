@@ -41,3 +41,12 @@
   file:
     path: /mnt/scripts
     state: absent
+
+- import_tasks: 3-user.yml
+  tags: user
+
+- name: Reboot
+  reboot:
+    connect_timeout: 1
+    reboot_timeout: 1
+  failed_when: false
