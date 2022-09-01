@@ -1,0 +1,2 @@
+- name: Regenerate Initramfs
+  shell: xbps-reconfigure -f linux-$(uname -r)

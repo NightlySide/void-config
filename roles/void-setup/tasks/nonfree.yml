@@ -1,0 +1,12 @@
+- name: Enable non-free repository
+  community.general.xbps: name=void-repo-nonfree state=present
+
+- name: Install Intel microcode
+  community.general.xbps: name=intel-ucode state=present
+  notify:
+  - Regenerate Initramfs
+  when: microcode_firmware.lower() == "intel"
+
+- name: Install AMD microcode
+  community.general.xbps: name=linux-firmware-amd state=present
+  when: microcode_firmware.lower() == "amd"

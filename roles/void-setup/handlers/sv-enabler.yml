@@ -1,0 +1,5 @@
+- name: Enable cronie
+  shell: ln -s /etc/sv/cronie /etc/runit/runsvdir/default/
+
+- name: Enable chrony
+  shell: ln -s /etc/sv/chrony /etc/runit/runsvdir/default/

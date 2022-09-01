@@ -46,6 +46,12 @@ user:
 
 # ------ Software picking list
 
+# Enable non-free repo
+enable_nonfree: true
+# Install microcode firmare (nonfree repo has to be enabled)
+# Possible values are: none, intel, amd
+microcode_firmware: intel
+
 # Desktop environment
 # possible values are: KDE
 desktop_environment: KDE

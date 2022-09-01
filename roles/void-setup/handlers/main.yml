@@ -1,0 +1,2 @@
+- import_tasks: initramfs.yml
+- import_tasks: sv-enabler.yml

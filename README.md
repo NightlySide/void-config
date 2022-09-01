@@ -17,5 +17,7 @@ Reboot the target machine and it's done!
 
 # TODO
 
-- Add swap partition
-- Remove LUKS encryption on either grub or the root partition
+- power saving elogind and acpid together + tlp
+- switch to network manager and disable wpa_supplicant
+- add graphics driver: intel, amd, nvidia, nvidia-optimus
+- add sound with alsa / pipewire

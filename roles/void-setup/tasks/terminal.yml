@@ -6,6 +6,9 @@
 
 - name: Install zsh shell
   community.general.xbps: name=zsh state=present
+
+- name: Install Starship prompt
+  community.general.xbps: name=starship state=present
   
 - name: Change current user's shell to zsh
   user:
@@ -13,25 +16,27 @@
     shell: /bin/zsh
 
 - name: Set default .zshrc
-  shell: |
-    cat <<EOF > /home/{{ user.name }}/.zshrc
-    # Lines configured by zsh-newuser-install
-    HISTFILE=~/.histfile
-    HISTSIZE=1000
-    SAVEHIST=1000
-    setopt autocd extendedglob notify
-    unsetopt beep nomatch
-    bindkey -e
-    # End of lines configured by zsh-newuser-install
-    # The following lines were added by compinstall
-    zstyle :compinstall filename '/home/{{ user.name }}/.zshrc'
-
-    autoload -Uz compinit
-    compinit
-    # End of lines added by compinstall
-    EOF
+  template:
+    src: zshrc.j2
+    dest: "/home/{{ user.name }}/.zshrc"
+    owner: "{{ user.name }}"
 
 - name: Install Oh-my-zsh
   become: false
   shell: RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   ignore_errors: true
+
+- name: Create font folder
+  file:
+    state: directory
+    path: "/home/{{ user.name }}/.local/share/fonts/"
+
+- name: Copy fonts
+  copy:
+    src: "fonts/Fira Code Regular Nerd Font Complete Mono.otf" 
+    dest: "/home/{{ user.name }}/.local/share/fonts/"
+  register: fonts_out
+
+- name: Clear font cache
+  shell: fc-cache -f -v
+  when: fonts_out.changed

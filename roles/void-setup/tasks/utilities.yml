@@ -12,4 +12,14 @@
   community.general.xbps: name=vlc state=present
 
 - name: Install gimp
-  community.general.xbps: name=vlc state=present
+  community.general.xbps: name=gimp state=present
+
+- name: Install cronie (cron)
+  community.general.xbps: name=cronie state=present
+  notify: 
+  - Enable cronie
+
+- name: Install chrony (ntp time)
+  community.general.xbps: name=chrony state=present
+  notify: 
+  - Enable chrony

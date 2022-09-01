@@ -4,7 +4,7 @@ cat <<EOF > /etc/rc.conf
 # /etc/rc.conf - system configuration for void
 
 HOSTNAME="{{ hostname }}"
-HARDWARECLOCK="UTC"
+HARDWARECLOCK="localtime"
 TIMEZONE="{{ timezone }}"
 KEYMAP="{{ keymap }}"
 EOF
