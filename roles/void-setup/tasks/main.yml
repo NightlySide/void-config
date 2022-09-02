@@ -6,20 +6,25 @@
 # - import_tasks: xorg.yml
 #   tags: xorg
 
-- name: Create Xorg configuration folder
-  file:
-    path: /etc/xorg.conf.d/
-    state: directory
+# - name: Create Xorg configuration folder
+#   file:
+#     path: /etc/xorg.conf.d/
+#     state: directory
 
-- name: Install keymap configuration
-  template:
-    src: keyboard_conf.j2
-    dest: /etc/xorg.conf.d/00-keyboard.conf
+# - name: Install keymap configuration
+#   template:
+#     src: keyboard_conf.j2
+#     dest: /etc/xorg.conf.d/00-keyboard.conf
 
-- name: Run nonfree tasks
-  import_tasks: nonfree.yml
-  when: enable_nonfree
-  tags: nonfree
+# - name: Run nonfree tasks
+#   import_tasks: nonfree.yml
+#   when: enable_nonfree
+#   tags: nonfree
+
+# - name: Setup NetworkManager
+#   import_tasks: networkmanager.yml
+#   when: enable_networkmanager
+#   tags: networkmanager
 
 # # Install Desktop environment
 # - import_tasks: de/main.yml
@@ -29,9 +34,18 @@
 # - import_tasks: browser/main.yml
 #   tags: browser
 
-# Install utilities
-- import_tasks: utilities.yml
-  tags: utils
+# Setup bluetooth
+- import_tasks: bluetooth.yml
+  when: enable_bluetooth
+  tags: bluetooth
+
+# Setup audio with pipewire
+- import_tasks: pipewire.yml
+  tags: pipewire
+
+# # Install utilities
+# - import_tasks: utilities.yml
+#   tags: utils
 
 # # Install flatpak apps
 # - import_tasks: flatpak.yml

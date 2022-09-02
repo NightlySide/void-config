@@ -62,3 +62,9 @@ web_browser: firefox
 
 # Flatpak apps
 enable_flatpak: true
+
+# Use NetworkManager instead of WPA_supplicant
+enable_networkmanager: true
+
+# Enable bluetooth service
+enable_bluetooth: true

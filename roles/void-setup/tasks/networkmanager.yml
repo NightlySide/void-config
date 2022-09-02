@@ -1,0 +1,11 @@
+- name: Install networkmanager
+  community.general.xbps: name=NetworkManager state=present
+
+- name: Disable dhcpd
+  shell: (test -e /var/service/dhcpd && sv down dhcpd && rm -R /var/service/dhcpd) || /bin/true
+
+- name: Disable WPA supplicant
+  shell: (test -e /var/service/wpa_supplicant && sv down wpa_supplicant && rm -R /var/service/wpa_supplicant) || /bin/true
+
+- name: Enable NetworkManager
+  shell: ln -s /etc/sv/NetworkManager /etc/runit/runsvdir/default/

@@ -1,0 +1,8 @@
+- name: Install Pipewire
+  community.general.xbps: name=pipewire state=present
+
+- name: Enable Pipewire on boot
+  shell: ln -s /usr/share/applications/pipewire.desktop /etc/xdg/autostart
+
+- name: Install bluetooth audio driver
+  community.general.xbps: name=libspa-bluetooth state=present
