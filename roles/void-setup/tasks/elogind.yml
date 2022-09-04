@@ -1,0 +1,13 @@
+- name: Install elogind
+  community.general.xbps: name=elogind state=present
+
+- name: Disable acpid
+  shell: (sv down acpid && rm -R /var/service/acpid)
+  ignore_errors: true
+
+- name: Enable elogind
+  shell: ln -s /etc/sv/elogind /etc/runit/runsvdir/default/
+  ignore_errors: true
+
+- name: Install tlp
+  community.general.xbps: name=tlp state=present

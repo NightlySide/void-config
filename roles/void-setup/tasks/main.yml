@@ -34,14 +34,14 @@
 # - import_tasks: browser/main.yml
 #   tags: browser
 
-# Setup bluetooth
-- import_tasks: bluetooth.yml
-  when: enable_bluetooth
-  tags: bluetooth
+# # Setup bluetooth
+# - import_tasks: bluetooth.yml
+#   when: enable_bluetooth
+#   tags: bluetooth
 
-# Setup audio with pipewire
-- import_tasks: pipewire.yml
-  tags: pipewire
+# # Setup audio with pipewire
+# - import_tasks: pipewire.yml
+#   tags: pipewire
 
 # # Install utilities
 # - import_tasks: utilities.yml
@@ -52,6 +52,10 @@
 #   tags: flatpak
 #   when: enable_flatpak
 
-# Install terminal
-- import_tasks: terminal.yml
-  tags: terminal
+# # Install terminal
+# - import_tasks: terminal.yml
+#   tags: terminal
+
+# Install elogind
+- import_tasks: elogind.yml
+  tags: elogind

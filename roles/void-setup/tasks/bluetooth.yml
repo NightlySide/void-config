@@ -1,5 +1,4 @@
 - name: Install bluetooth package
   community.general.xbps: name=bluez state=present
-
-- name: Enable bluetoothd
-  shell: ln -s /etc/sv/bluetoothd /etc/runit/runsvdir/default/
+  notify:
+  - Enable bluetoothd

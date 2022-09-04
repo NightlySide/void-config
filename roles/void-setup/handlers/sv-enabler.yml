@@ -3,3 +3,9 @@
 
 - name: Enable chrony
   shell: ln -s /etc/sv/chrony /etc/runit/runsvdir/default/
+
+- name: Enable bluetoothd
+  shell: ln -s /etc/sv/bluetoothd /etc/runit/runsvdir/default/
+
+- name: Enable Pipewire on boot
+  shell: ln -s /usr/share/applications/pipewire.desktop /etc/xdg/autostart

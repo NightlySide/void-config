@@ -17,6 +17,4 @@ Reboot the target machine and it's done!
 
 # TODO
 
-- power saving elogind and acpid together + tlp
 - add graphics driver: intel, amd, nvidia, nvidia-optimus
-- add sound with alsa / pipewire
