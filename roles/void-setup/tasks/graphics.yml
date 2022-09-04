@@ -1,0 +1,3 @@
+- name: Install NVIDIA drivers
+  community.general.xbps: name=nvidia state=present
+  when: graphics_driver.lower() == "nvidia"

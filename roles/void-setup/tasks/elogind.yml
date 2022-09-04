@@ -11,3 +11,5 @@
 
 - name: Install tlp
   community.general.xbps: name=tlp state=present
+  notify:
+  - Enable tlp

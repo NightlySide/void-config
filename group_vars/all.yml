@@ -49,8 +49,11 @@ user:
 # Enable non-free repo
 enable_nonfree: true
 # Install microcode firmare (nonfree repo has to be enabled)
-# Possible values are: none, intel, amd
+# Possible values are: none, intel
 microcode_firmware: intel
+# Install graphics driver (nonfree repo has to be enabled)
+# Possible values are: none, nvidia
+graphics_driver: nvidia
 
 # Desktop environment
 # possible values are: KDE

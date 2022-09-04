@@ -21,6 +21,11 @@
 #   when: enable_nonfree
 #   tags: nonfree
 
+- name: Install graphics drivers
+  import_tasks: graphics.yml
+  when: enable_nonfree
+  tags: graphics
+
 # - name: Setup NetworkManager
 #   import_tasks: networkmanager.yml
 #   when: enable_networkmanager
